@@ -16,7 +16,7 @@ app.set('views', 'view');
 
 
 mongoose.set('strictQuery', true);
-mongoose.connect('mongodb+srv://dima:1312@cluster0.ekn9fvm.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('connection string')
     .then(() => console.log('MongoDB connection established.'))
     .catch((error) => console.error("MongoDB connection failed:", error.message))
 
