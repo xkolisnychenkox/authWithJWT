@@ -2,7 +2,6 @@ const express = require('express'),
       path = require('path'),
       mongoose = require('mongoose'),
       cookieParser = require('cookie-parser'),
-      loginRoutes = require('./routes/login'),
       signupRoutes = require('./routes/singup');
 
 
@@ -18,11 +17,10 @@ app.set('views', 'view');
 
 
 mongoose.set('strictQuery', true);
-mongoose.connect('connection string')
+mongoose.connect('mongodb+srv://dima:1312@cluster0.ekn9fvm.mongodb.net/?retryWrites=true&w=majority')
     .then(() => console.log('MongoDB connection established.'))
     .catch((error) => console.error("MongoDB connection failed:", error.message))
 
-app.use(loginRoutes);
 app.use(signupRoutes);
 
 app.get('/', (req, res) => {res.render('home')});

@@ -7,4 +7,8 @@ router.get('/signup', signController.signGet);
 
 router.post('/signup', signController.signPost);
 
+router.get('/login', signController.loginGet);
+
+router.post('/login', signController.loginPost);
+
 module.exports = router;
