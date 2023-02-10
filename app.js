@@ -1,6 +1,7 @@
 const express = require('express'),
       path = require('path'),
       mongoose = require('mongoose'),
+      cookieParser = require('cookie-parser'),
       loginRoutes = require('./routes/login'),
       signupRoutes = require('./routes/singup');
 
@@ -10,6 +11,7 @@ const PORT = 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+app.use(cookieParser());
 
 app.set('view engine', 'ejs');
 app.set('views', 'view');
@@ -26,9 +28,6 @@ app.use(signupRoutes);
 app.get('/', (req, res) => {res.render('home')});
 app.get('/smoothies', (req, res) => {res.render('smoothies')});
 
-
-//Routes
 app.use('/', (req, res) => res.render('404'));
-
 app.listen(PORT, () => {console.log(`Server listen port ${PORT}`)})
 
