@@ -2,7 +2,8 @@ const express = require('express'),
       path = require('path'),
       mongoose = require('mongoose'),
       cookieParser = require('cookie-parser'),
-      signupRoutes = require('./routes/singup');
+      signupRoutes = require('./routes/singup'),
+      authMiddleware = require('./middleware/authMiddleware');
 
 
 const app = express();
@@ -17,14 +18,14 @@ app.set('views', 'view');
 
 
 mongoose.set('strictQuery', true);
-mongoose.connect('mongodb+srv://dima:1312@cluster0.ekn9fvm.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('connection string')
     .then(() => console.log('MongoDB connection established.'))
     .catch((error) => console.error("MongoDB connection failed:", error.message))
 
 app.use(signupRoutes);
 
 app.get('/', (req, res) => {res.render('home')});
-app.get('/smoothies', (req, res) => {res.render('smoothies')});
+app.get('/smoothies', authMiddleware.requireAuth, (req, res) => {res.render('smoothies')});
 
 app.use('/', (req, res) => res.render('404'));
 app.listen(PORT, () => {console.log(`Server listen port ${PORT}`)})

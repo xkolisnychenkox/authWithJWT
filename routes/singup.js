@@ -11,4 +11,6 @@ router.get('/login', signController.loginGet);
 
 router.post('/login', signController.loginPost);
 
+router.get('/logout', signController.logoutGet);
+
 module.exports = router;

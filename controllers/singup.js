@@ -8,6 +8,15 @@ const handleErrors = (err) => {
 
   let errors = { email: '', password: '' };
 
+  //incorrect email and password
+  if (err.message === 'incorrect email'){
+    errors.email = 'that email is not registered';
+  }
+
+  if (err.message === 'incorrect password'){
+    errors.password = 'wrong password';
+  }
+
   //duplicate error code
   if (err.code === 11000){
     errors.email = 'that email already registered';
@@ -27,7 +36,7 @@ const handleErrors = (err) => {
 
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-  return jwt.sign({ id }, 'kolis secret', {
+  return jwt.sign({ id }, 'secret', {
     expiresIn: maxAge
   });
 };
@@ -69,7 +78,12 @@ exports.loginPost = async (req, res) => {
   }
   catch (err) {
       const errors = handleErrors(err);
-      res.status(400).json({  })
+      res.status(400).json({ errors })
   }
 
+};
+
+exports.logoutGet = (req, res) => {
+  res.cookie('jwt', '', { maxAge: 1 });
+  res.redirect(302, '/');
 };
